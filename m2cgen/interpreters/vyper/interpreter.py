@@ -71,13 +71,13 @@ class VyperInterpreter(ImperativeToCodeInterpreter,
             self._do_interpret(expr.right, **kwargs),
             *extra_func_args)
 
-    def interpret(self, expr):
+    def interpret(self, expr, model_metadata={}):
         self._cg.reset_state()
         self._reset_reused_expr_cache()
 
         with self._cg.function_definition(
                 name=self.function_name,
-                args=[(True, self._feature_array_name)],
+                args=[(model_metadata["n_features_in"], self._feature_array_name)],
                 output_size=expr.output_size):
             last_result = self._do_interpret(expr)
             self._cg.add_return_statement(last_result)

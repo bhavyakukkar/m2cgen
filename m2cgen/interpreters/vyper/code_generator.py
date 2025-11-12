@@ -29,8 +29,8 @@ class VyperCodeGenerator(ImperativeCodeGenerator):
 
     def add_function_def(self, name, args, output_size):
         func_args = ", ".join([
-            f"{n}: {self.dyn_vector_type if is_vector else self.scalar_type}"
-            for is_vector, n in args])
+            f"{n}: {self._get_var_declare_type(size=size)}"
+            for size, n in args])
         return_type = self._get_var_declare_type(output_size)
         function_def = f"@external\n@view\ndef {name}({func_args}) -> {return_type}:"
         self.add_code_line(function_def)

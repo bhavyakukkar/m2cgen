@@ -480,5 +480,6 @@ def export_to_elixir(model, module_name="Model", indent=4,
 
 def _export(model, interpreter):
     assembler_cls = get_assembler_cls(model)
+    metadata = {"n_features_in": model.n_features_in_}
     model_ast = assembler_cls(model).assemble()
-    return interpreter.interpret(model_ast)
+    return interpreter.interpret(model_ast, model_metadata=metadata)
