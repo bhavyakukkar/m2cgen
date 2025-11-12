@@ -6,4 +6,6 @@ recursive-include m2cgen tanh.*
 recursive-include m2cgen atan.*
 recursive-include m2cgen softmax.*
 recursive-include m2cgen sigmoid.*
+recursive-include m2cgen add_vectors.*
+recursive-include m2cgen mul_vector_number.*
 global-exclude *.py[cod]

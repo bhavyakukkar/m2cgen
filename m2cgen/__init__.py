@@ -16,7 +16,8 @@ from m2cgen.exporters import (
     export_to_r,
     export_to_ruby,
     export_to_rust,
-    export_to_visual_basic
+    export_to_visual_basic,
+    export_to_vyper
 )
 
 __all__ = [
@@ -26,6 +27,7 @@ __all__ = [
     export_to_python,
     export_to_javascript,
     export_to_visual_basic,
+    export_to_vyper,
     export_to_c_sharp,
     export_to_powershell,
     export_to_r,

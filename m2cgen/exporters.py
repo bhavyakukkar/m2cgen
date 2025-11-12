@@ -57,6 +57,30 @@ def export_to_python(model, indent=4, function_name="score"):
     return _export(model, interpreter)
 
 
+def export_to_vyper(model, indent=4, function_name="score"):
+    """
+    Generates a Vyper code representation of the given model.
+
+    Parameters
+    ----------
+    model : object
+        The model object that should be transpiled into code.
+    indent : int, optional
+        The size of indents in the generated code.
+    function_name : string, optional
+        Name of the function in the generated code.
+
+    Returns
+    -------
+    code : string
+    """
+    interpreter = interpreters.VyperInterpreter(
+        indent=indent,
+        function_name=function_name
+    )
+    return _export(model, interpreter)
+
+
 def export_to_c(model, indent=4, function_name="score"):
     """
     Generates a C code representation of the given model.
