@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+import numpy as np
 
 from m2cgen.interpreters.code_generator import CodeTemplate, ImperativeCodeGenerator
 
@@ -54,12 +55,8 @@ class VyperCodeGenerator(ImperativeCodeGenerator):
             return self.scalar_type
 
     def tpl_num_value(self, value):
-        # Replace decimal numbers `x.y` where y exceeds 10 digits into `(x. + (y. / 100..))`
+        # Reduce precision of floating point numbers with >10 decimal digits to 10 decimal digits
         # <https://docs.vyperlang.org/en/latest/types.html#id10>
-        source = CodeTemplate("{value}")(value=value)
-        whole, frac = source.split(".")
-        if len(frac) <= 10:
-            return source
-        zeroes = "0" * len(frac)
-        processed = f"({whole}. + ({frac.strip('0')}. / 1{zeroes}.))"
-        return processed
+        return CodeTemplate("{value}")(value=round(value, 10)
+                                       if isinstance(value, (float, np.floating))
+                                       else value)
